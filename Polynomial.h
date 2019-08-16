@@ -2,6 +2,11 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <exception>
+#include "Exception.h"
+#include "DivisionByZero.h"
+#include "InvalidPower.h"
+#include "InvalidString.h"
 
 using namespace std;
 
@@ -10,8 +15,9 @@ class Polynomial
 public:
 	Polynomial(string input);
 	~Polynomial();
-	int getValueAfterX(string segment) const;
-	double getValueAfterSign(string segment) const;
+	void testForInvalidString(string input);
+	void testForInvalidPower(string input);
+
 private:
 	vector<double> coefficients; // the element of the vector corresponds to the power of x
 };

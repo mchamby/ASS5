@@ -6,6 +6,9 @@ Polynomial::Polynomial(string input)
 {
 	try
 	{
+		testForInvalidString(input);
+		testForInvalidPower(input);
+
 		// we need to get the coefficients from the string input
 		int counter = 0;	// counter for the while loop
 
@@ -38,7 +41,7 @@ Polynomial::Polynomial(string input)
 			cout << coefficients[i] << ' ';
 		}
 	}
-	catch (exception& e)
+	catch (Exception& e)
 	{
 		cout << e.what() << '\n';
 	}
@@ -49,17 +52,25 @@ Polynomial::~Polynomial()
 {
 }
 
-int Polynomial::getValueAfterX(string segment) const
+void Polynomial::testForInvalidString(string input)
 {
-	int xIndex = segment.find('x');
-	return segment[xIndex + 1];
+	int invalidInputIndex = input.find_first_not_of("+-.^x1234567890");
+	if (invalidInputIndex <= input.size())
+		throw InvalidString();
 }
 
-double Polynomial::getValueAfterSign(string segment) const
+void Polynomial::testForInvalidPower(string input)
 {
-	int signIndex = segment.find("+-");
-	int xIndex = segment.find('x');
-	string valueString = segment.substr(signIndex + 1, xIndex - signIndex);
-	double value = stod(valueString);
-	return value;
+	// check to make sure the power isn't negative
+	while (true)
+	{
+		int hatIndex = input.find_last_of('^');
+		if (hatIndex > input.size())	// there are no hats left in the string
+			break;
+		if (input[hatIndex + 1] == '-')
+			throw InvalidPower();
+		input.erase(hatIndex);
+	}
+
+	// maybe test if the powers are in order
 }

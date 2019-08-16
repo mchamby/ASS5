@@ -1,8 +1,13 @@
 #pragma once
 #include <string>
 
+using namespace std;
+
 class Exception
 {
 public:
-	virtual string what() {return "Error";}
+	Exception();
+	~Exception();
+	virtual string what();
 };
+
