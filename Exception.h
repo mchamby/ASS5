@@ -1,9 +1,8 @@
 #pragma once
+#include <string>
 
 class Exception
 {
 public:
-	Exception();
-	~Exception();
+	virtual string what() {return "Error";}
 };
-
