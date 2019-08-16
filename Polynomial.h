@@ -12,12 +12,13 @@ using namespace std;
 
 class Polynomial
 {
+	friend ostream& operator << (ostream& os, Polynomial& rhs);
 public:
 	Polynomial(string input);
+	Polynomial(const Polynomial& rhs);
 	~Polynomial();
 	void testForInvalidString(string input);
 	void testForInvalidPower(string input);
-
 private:
 	vector<double> coefficients; // the element of the vector corresponds to the power of x
 };

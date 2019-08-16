@@ -9,7 +9,6 @@ public:
 	Rational(string polynomial1, Polynomial& polynomial2);
 	Rational(Polynomial& polynomial1, string polynomial2);
 	Rational(Polynomial& polynomial1, Polynomial& polynomial2);
-	~Rational();
 private:
 	Polynomial numerator;
 	Polynomial denominator;

@@ -6,6 +6,9 @@ Polynomial::Polynomial(string input)
 {
 	try
 	{
+		testForInvalidString(input);
+		testForInvalidPower(input);
+
 		// we need to get the coefficients from the string input
 		int counter = 0;	// counter for the while loop
 
@@ -44,16 +47,48 @@ Polynomial::Polynomial(string input)
 	}
 }
 
+
+void Polynomial::testForInvalidString(string input)
+{
+	int invalidInputIndex = input.find_first_not_of("+-.^x1234567890");
+	if (invalidInputIndex <= input.size())
+		throw InvalidString();
+}
+
+void Polynomial::testForInvalidPower(string input)
+{
+	// check to make sure the power isn't negative
+	while (true)
+	{
+		int hatIndex = input.find_last_of('^');
+		if (hatIndex > input.size())	// there are no hats left in the string
+			break;
+		if (input[hatIndex + 1] == '-')
+			throw InvalidPower();
+		input.erase(hatIndex);
+	}
+
+	// maybe test if the powers are in order
+}
+
+
 Polynomial::Polynomial(const Polynomial& rhs)
 {
-	for(int i = 0; i < coefficients.size(); ++i )
-	{
-		this->coefficients[i] = rhs.coefficients[i];
-	}
+	this->coefficients = rhs.coefficients;
 }
+
 
 Polynomial::~Polynomial()
 {
-	coefficients.erase(coefficients.begin(),coefficients.end());
+	coefficients.erase(coefficients.begin(), coefficients.end());
 }
 
+ostream & operator<<(ostream & os, const Polynomial & rhs)
+{
+	for (int i = rhs.coefficients.size() - 1; i >= 0; --i)
+	{
+		if (rhs.coefficients[i] != 0)
+			os << showpos << rhs.coefficients[i] << "x^" << noshowpos << i;
+	}
+	return os;
+}
