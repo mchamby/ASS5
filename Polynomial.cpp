@@ -4,36 +4,43 @@
 
 Polynomial::Polynomial(string input)
 {
-	const int maxNumOfSegments = 10;
-	string segments[maxNumOfSegments] = { "" }; // the element of the segment corresponds to the power of x
-	
-	// separating the input string into segments
-	while (input.empty() == false)
+	try
 	{
-		int first = input.find_last_of("+-");
-		int powerOfX = (input.back() - 48);	// this only works for 1 digit powers
-		segments[powerOfX].assign(input.substr(first));
-		cout << segments[powerOfX] << " ";	// printing the parsed segment
-		input.erase(first);	// erase the parsed segment from the input string
-	}
+		// we need to get the coefficients from the string input
+		int counter = 0;	// counter for the while loop
 
-	// put the coefficients into the coefficients vector
-	for (int i = 0; i < maxNumOfSegments; ++i)
-	{
-		// check if there is a string in this element
-		// we don't want to perform operations on an empty string!
-		if (segments[i].empty() == false)
+		// keep parsing coefficients until the input string is empty
+		while (input.empty() == false)
 		{
-			coefficients.push_back(getValueAfterSign(segments[i]));
-		}
-		else coefficients.push_back(0.0);
-	}
+			int lastSignIndex = input.find_last_of("+-");
+			int lastPowerIndex = input.find_last_of("^") + 1;
+			int powerOfX = stoi(input.substr(lastPowerIndex));
 
-	cout << '\n';
-	// printing all coefficients
-	for (int i = 0; i < 10; ++i)
+			if (powerOfX == counter)
+			{
+				// get the coefficient from the string and add it to the vector
+				string coeffString = input.substr(lastSignIndex, lastPowerIndex - 2 - lastSignIndex);
+				double coeff = stod(coeffString);
+				coefficients.push_back(coeff);
+
+				// remove this part of the the input string and move on to the next
+				input.erase(input.find_last_of("+-"));
+			}
+			// if the power of x in the rightmost term doesn't match counter,
+			// we put a 0 as that coefficient
+			else coefficients.push_back(0.0);
+			++counter;
+		}
+
+		// printing all coefficients for testing
+		for (int i = 0; i < coefficients.size(); ++i)
+		{
+			cout << coefficients[i] << ' ';
+		}
+	}
+	catch (exception& e)
 	{
-		cout << coefficients[i] << ' ';
+		cout << e.what() << '\n';
 	}
 }
 
