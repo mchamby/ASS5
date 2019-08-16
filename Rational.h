@@ -3,8 +3,12 @@
 
 class Rational
 {
+	friend ostream& operator<< (ostream& os,const Rational& r1);
 public:
-	Rational();
+	Rational(string poly1,string poly2);
+	Rational(string poly1,Polynomial& poly2);
+	Rational(Polynomial& poly1,string poly2);
+	Rational(Polynomial& poly1,Polynomial& poly2);
 	~Rational();
 private:
 	//Polynomial numerator;
