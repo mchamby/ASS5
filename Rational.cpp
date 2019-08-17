@@ -22,7 +22,27 @@ Rational::Rational(Polynomial & polynomial1, Polynomial & polynomial2)
 {
 }
 
-ostream & operator<<(ostream & os, const Rational & r1)
+double Rational::operator () (const double x) const
+{
+  const double num = numerator(x);
+  const double denom = denominator(x);
+
+  try
+  {
+    if (denom == 0)
+      throw DivisionByZero();
+  }
+  catch (DivisionByZero& e)
+  {
+    cout << e.what() << '\n';
+    return 0.0;
+  }
+  
+  return (num / denom);
+}
+
+
+ostream & operator << (ostream & os, const Rational & r1)
 {
 	os << r1.numerator << "\n-----------------------------------\n" << r1.denominator;
 
