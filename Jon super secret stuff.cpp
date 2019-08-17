@@ -143,7 +143,7 @@ double Polynomial::getValueAfterSign(string segment) const
  {
 	 string poly; 
 	 is >> poly; 
-	 Polynomial temp("poly"); // create a polynomial using the inputted string 
+	 Polynomial temp(poly); // create a polynomial using the inputted string 
 	 p = temp;
 	 return is;
  }
