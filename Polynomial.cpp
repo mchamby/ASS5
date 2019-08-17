@@ -93,6 +93,126 @@ ostream & operator<<(ostream & os, const Polynomial & rhs)
 	return os;
 }
 
+istream& operator>> (istream& is, Polynomial& rhs)
+{
+	 string poly; 
+	 is >> poly; 
+	 Polynomial temp(poly); // create a polynomial using the inputted string 
+	 rhs = temp;
+	 return is;
+}
+
+Polynomial operator+ (const Polynomial & p1, const Polynomial & p2) 
+{
+
+	Polynomial result("0");
+
+	int count = 0;
+
+	for (int i = 0; i < findSmallerPoly(p1, p2); ++i) { 
+
+		// add elements until the smaller vector goes out of range
+
+		result.coefficients[i] = p1.coefficients[i] + p2.coefficients[i];
+
+		++count;
+	}
+	
+	for (int j = count; j < findLargerPoly(p1, p2); ++j)
+
+		// continue adding starting from the index reached in first loop until the end of the larger vector 
+	{
+		if (returnLargerPoly(p1, p2)==true) 
+			
+			// determine which vector is larger for filling the rest of result
+		
+			result.coefficients[j] = p1.coefficients[j];
+		
+		else
+
+		result.coefficients[j] = p2.coefficients[j];
+
+	}
+
+	return result;
+}
+
+Polynomial operator- (const Polynomial & p1, const Polynomial & p2)
+{
+	Polynomial result("0");
+
+	int count = 0;
+
+	for (int i = 0; i < findSmallerPoly(p1, p2); ++i) 
+	
+		{
+		result.coefficients[i] = p1.coefficients[i] - p2.coefficients[i];
+
+		++count;
+		}
+		
+
+	for (int j = count; j < findLargerPoly(p1, p2); ++j)
+	{
+		if (returnLargerPoly(p1, p2) == true)
+
+			// if p1 has more values, the rest of the subtraction will be positive values of p1
+
+			result.coefficients[j] = p1.coefficients[j];
+
+		else
+			// if p2 has more values, the remainder of the subtraction will be negative values of p2
+			result.coefficients[j] = -p2.coefficients[j];
+
+	}
+
+}
+
+const Polynomial operator* (const Polynomial& p, double z) 
+{
+
+	 Polynomial result("0");
+
+	 for (int i = 0; i < p.coefficients.size; ++i)
+	 {
+		 result.coefficients[i] = z * p.coefficients[i];
+	 }
+
+	 return result;
+ }
+ 
+double & Polynomial::operator[] (int n)
+{
+	try 
+	{
+		if (n < 0)
+			throw InvalidPower();
+	}
+	catch (Exception &e) {
+
+		cout << e.what();
+	}
+
+	 return coefficients[n];
+}
+
+double Polynomial::operator[] (int n) const 
+{
+
+	try 
+	{
+		if (n < 0)
+			throw InvalidPower();
+	}
+	catch (Exception& e) 
+	{
+
+		cout << e.what();
+	}
+
+	return coefficients[n];
+ }
+
 double Polynomial::operator() (double x) const
 {
   double total;
@@ -101,4 +221,38 @@ double Polynomial::operator() (double x) const
     total += coefficients[i] * pow(x, i);
   }
   return total;
+}
+
+int findSmallerPoly(const Polynomial & p1, const Polynomial & p2)
+{
+
+	if (p1.coefficients.size <= p2.coefficients.size)
+
+		return p1.coefficients.size;
+
+	else
+
+		return p2.coefficients.size;
+}
+
+int findLargerPoly(const Polynomial & p1, const Polynomial & p2) 
+{
+
+	if (p1.coefficients.size >= p2.coefficients.size)
+
+		return p1.coefficients.size;
+
+	else
+		return p2.coefficients.size;
+}
+
+bool returnLargerPoly(const Polynomial& p1, const Polynomial & p2)
+{
+	if (p1.coefficients.size >= p2.coefficients.size)
+
+		return true;
+
+	else
+
+		return false;
 }

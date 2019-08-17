@@ -9,7 +9,7 @@ public:
 	Rational(string polynomial1, Polynomial& polynomial2);
 	Rational(Polynomial& polynomial1, string polynomial2);
 	Rational(Polynomial& polynomial1, Polynomial& polynomial2);
-  double operator() (double x) const;
+  	double operator() (double x) const;
 
 private:
 	Polynomial numerator;
