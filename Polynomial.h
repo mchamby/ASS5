@@ -12,7 +12,7 @@ using namespace std;
 
 class Polynomial
 {
-	friend ostream& operator << (ostream& os, Polynomial& rhs);
+	friend ostream& operator << (ostream& os, const Polynomial& rhs);
 public:
 	Polynomial(string input);
 	Polynomial(const Polynomial& rhs);
