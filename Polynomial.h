@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <cmath>
 #include <exception>
 #include "Exception.h"
 #include "DivisionByZero.h"
@@ -19,6 +20,7 @@ public:
 	~Polynomial();
 	void testForInvalidString(string input);
 	void testForInvalidPower(string input);
+  double operator() (double x) const;
 private:
 	vector<double> coefficients; // the element of the vector corresponds to the power of x
 };
