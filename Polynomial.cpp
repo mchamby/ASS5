@@ -165,7 +165,7 @@ Polynomial operator- (const Polynomial & p1, const Polynomial & p2)
 			result.coefficients[j] = -p2.coefficients[j];
 
 	}
-
+	return result;
 }
 
 const Polynomial operator* (const Polynomial& p, double z) 
@@ -173,7 +173,7 @@ const Polynomial operator* (const Polynomial& p, double z)
 
 	 Polynomial result("0");
 
-	 for (int i = 0; i < p.coefficients.size; ++i)
+	 for (int i = 0; i < p.coefficients.size(); ++i)
 	 {
 		 result.coefficients[i] = z * p.coefficients[i];
 	 }
@@ -226,29 +226,29 @@ double Polynomial::operator() (double x) const
 int findSmallerPoly(const Polynomial & p1, const Polynomial & p2)
 {
 
-	if (p1.coefficients.size <= p2.coefficients.size)
+	if (p1.coefficients.size() <= p2.coefficients.size())
 
-		return p1.coefficients.size;
+		return p1.coefficients.size();
 
 	else
 
-		return p2.coefficients.size;
+		return p2.coefficients.size();
 }
 
 int findLargerPoly(const Polynomial & p1, const Polynomial & p2) 
 {
 
-	if (p1.coefficients.size >= p2.coefficients.size)
+	if (p1.coefficients.size() >= p2.coefficients.size())
 
-		return p1.coefficients.size;
+		return p1.coefficients.size();
 
 	else
-		return p2.coefficients.size;
+		return p2.coefficients.size();
 }
 
 bool returnLargerPoly(const Polynomial& p1, const Polynomial & p2)
 {
-	if (p1.coefficients.size >= p2.coefficients.size)
+	if (p1.coefficients.size() >= p2.coefficients.size())
 
 		return true;
 
