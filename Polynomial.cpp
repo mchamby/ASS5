@@ -92,3 +92,13 @@ ostream & operator<<(ostream & os, const Polynomial & rhs)
 	}
 	return os;
 }
+
+double Polynomial::operator() (double x) const
+{
+  double total;
+  for (int i = 0; i < coefficients.size(); ++i)
+  {
+    total += coefficients[i] * pow(x, i);
+  }
+  return total;
+}
